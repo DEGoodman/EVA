@@ -3,7 +3,9 @@
 
 import com.onformative.yahooweather.*;
 import ddf.minim.*;
+import http.requests.*;
 
+//http://www.onformative.com/lab/google-weather-library-for-processing/
 YahooWeather weather;
 int updateIntervallMillis = 60000; 
 
@@ -11,7 +13,6 @@ int vals; // will have to parse values
 int temp; // temporary value location, to save memory
 Minim minim;
 AudioInput in;
-
 int numCircles;
 Round[] rounds;
 float xincrement = 0.0007; 
@@ -32,6 +33,27 @@ int gainModifier = 0;
 
 void setup() {
   size(800, 600, P2D);
+  
+  //get my location data  
+  GetRequest getCountry = new GetRequest("http://ip-api.com/line/?fields=country");
+  getCountry.send();
+  String country = getCountry.getContent();
+  println("Response Country: " + country);
+  
+  println country;
+  
+  // if location is outside US, these wll be null
+  if(country.equals("United States") == true){
+      GetRequest getCity = new GetRequest("http://ip-api.com/line/?fields=city");
+      getCity.send();
+      String city = getCity.getContent();
+      println("Response City: " + city);
+  
+      GetRequest getState = new GetRequest("http://ip-api.com/line/?fields=regionName");
+      getState.send();
+      String state = getState.getContent();
+      println("Response State: " + state); 
+  }  
   
   // get weather data 
   // 2508428= the WOEID of Tucson
