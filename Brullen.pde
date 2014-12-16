@@ -11,7 +11,6 @@ int vals; // will have to parse values
 int temp; // temporary value location, to save memory
 Minim minim;
 AudioInput in;
-
 int numCircles;
 Round[] rounds;
 float xincrement = 0.0007; 
