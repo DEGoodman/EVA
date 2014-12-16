@@ -32,27 +32,39 @@ int waitCounter = 300;
 int gainModifier = 0;
 
 void setup() {
-  size(800, 600, P2D);
+  size(1200, 960, P2D);
   
   //get my location data  
   GetRequest getCountry = new GetRequest("http://ip-api.com/line/?fields=country");
   getCountry.send();
   String country = getCountry.getContent();
+  country = country.substring(0, country.length() - 1);
   println("Response Country: " + country);
   
-  println country;
-  
   // if location is outside US, these wll be null
-  if(country.equals("United States") == true){
+  if(country.equals("United States")){
       GetRequest getCity = new GetRequest("http://ip-api.com/line/?fields=city");
       getCity.send();
       String city = getCity.getContent();
+      city = city.substring(0, city.length() - 1);
       println("Response City: " + city);
   
       GetRequest getState = new GetRequest("http://ip-api.com/line/?fields=regionName");
       getState.send();
       String state = getState.getContent();
+      state = state.substring(0, state.length() - 1);
       println("Response State: " + state); 
+  }  
+  
+  else {
+      JSONObject json;
+      GetRequest getCity = new GetRequest("https://restcountries-v1.p.mashape.com/name/" + country);
+      getCity.send();
+      json = loadJSONObject(getCity.getContent());
+//      print(json);
+//      String city = json.getString("capital");
+//      city = city.substring(0, city.length() - 1);
+//      println("Response City: " + city);
   }  
   
   // get weather data 
