@@ -18,10 +18,12 @@ Round[] rounds;
 float xincrement = 0.0007; 
 float yincrement = 0.0007;
 
-// sensors
+// sensors: Some of these have been deprecated, but I'm not sure what may break the application, so the are staying
 int pot;
 int lightRes;
 int temperature;
+
+
 int seed = 0;
 int counter = 0;
 int hue;
@@ -30,6 +32,13 @@ boolean wait = false;
 int lineCounter = 0;
 int waitCounter = 300;
 int gainModifier = 0;
+
+StringDict cc;
+String country;
+String city;
+String state;
+int w;
+
 
 void setup() {
   size(1200, 960, P2D);
@@ -57,19 +66,14 @@ void setup() {
   }  
   
   else {
-      JSONObject json;
-      GetRequest getCity = new GetRequest("https://restcountries-v1.p.mashape.com/name/" + country);
-      getCity.send();
-      json = loadJSONObject(getCity.getContent());
-//      print(json);
-//      String city = json.getString("capital");
-//      city = city.substring(0, city.length() - 1);
-//      println("Response City: " + city);
+      // get capital city
+      String city = getCity(country);
+      println("Response City: " + city);
   }  
   
   // get weather data 
   // 2508428= the WOEID of Tucson
-  // use this site to find out about your WOEID : http://sigizmund.info/woeidinfo/
+  println("WOEID for: " + country + ", " + city + " is " + w);
   weather = new YahooWeather(this, 2508428, "f", updateIntervallMillis);
  
   //visuals
