@@ -275,3 +275,19 @@ String getCity(String countryIn){
     return cc.get(countryIn);
 }  
 
+//get WOEID for place
+// ex) http://where.yahooapis.com/v1/places.q('Sweden')?appid=9c75c376c3153f80997f44c13731758b995fda5f
+String getW(){
+  XML xml;
+  
+  GetRequest getWOEID = new GetRequest("http://where.yahooapis.com/v1/places.q('" + city + "')?appid=9c75c376c3153f80997f44c13731758b995fda5f");
+  getWOEID.send();
+  xml = loadXML(getWOEID.getContent());
+  
+  XML woeid = xml.getChild("woeid");
+  w = woeid.getContent();
+  
+  return w; 
+}
+
+

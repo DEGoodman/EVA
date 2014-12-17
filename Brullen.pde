@@ -37,7 +37,7 @@ StringDict cc;
 String country;
 String city;
 String state;
-int w;
+String w;
 
 
 void setup() {
@@ -46,7 +46,7 @@ void setup() {
   //get my location data  
   GetRequest getCountry = new GetRequest("http://ip-api.com/line/?fields=country");
   getCountry.send();
-  String country = getCountry.getContent();
+  country = getCountry.getContent();
   country = country.substring(0, country.length() - 1);
   println("Response Country: " + country);
   
@@ -54,25 +54,20 @@ void setup() {
   if(country.equals("United States")){
       GetRequest getCity = new GetRequest("http://ip-api.com/line/?fields=city");
       getCity.send();
-      String city = getCity.getContent();
+      city = getCity.getContent();
       city = city.substring(0, city.length() - 1);
       println("Response City: " + city);
-  
-      GetRequest getState = new GetRequest("http://ip-api.com/line/?fields=regionName");
-      getState.send();
-      String state = getState.getContent();
-      state = state.substring(0, state.length() - 1);
-      println("Response State: " + state); 
   }  
   
   else {
       // get capital city
-      String city = getCity(country);
+      city = getCity(country);
       println("Response City: " + city);
   }  
   
   // get weather data 
   // 2508428= the WOEID of Tucson
+  w = getW();
   println("WOEID for: " + country + ", " + city + " is " + w);
   weather = new YahooWeather(this, 2508428, "f", updateIntervallMillis);
  
