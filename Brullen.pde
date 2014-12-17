@@ -18,11 +18,8 @@ Round[] rounds;
 float xincrement = 0.0007; 
 float yincrement = 0.0007;
 
-// sensors: Some of these have been deprecated, but I'm not sure what may break the application, so the are staying
-int pot;
 int lightRes;
 int temperature;
-
 
 int seed = 0;
 int counter = 0;
@@ -68,8 +65,9 @@ void setup() {
   // get weather data 
   // 2508428= the WOEID of Tucson
   w = getW();
+  int wInt = parseInt(w);
   println("WOEID for: " + country + ", " + city + " is " + w);
-  weather = new YahooWeather(this, w, "f", updateIntervallMillis);
+  weather = new YahooWeather(this, wInt, "f", updateIntervallMillis);
  
   //visuals
   minim = new Minim(this);

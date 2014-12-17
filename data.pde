@@ -1,13 +1,3 @@
-int setLuminosity(){
-  println("hour: " + hour());
-  if (hour() < 12)
-    return hour() + 1;
-  else {
-    int h = int(map(hour(), 12, 23, 12, 1));
-    return h;
-  }
-}
-
 void getData() {
   lightRes = getLight();
   temperature = getTemp();
@@ -63,6 +53,17 @@ int getLight() {
   return temp;
 }  
 
+int setLuminosity(){
+  println("hour: " + hour());
+  if (hour() < 12)
+    return hour() + 1;
+  else {
+    int h = int(map(hour(), 12, 23, 12, 1));
+    return h;
+  }
+}
+
+
 //from user location
 int getTemp() {
   //find users' local temperature
@@ -71,7 +72,7 @@ int getTemp() {
     t = 120;
   if(t < 20)
     t = 20;  
-  return 55;
+  return t;
 }  
 
 // return capital city of a given country
