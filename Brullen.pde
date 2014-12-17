@@ -69,7 +69,7 @@ void setup() {
   // 2508428= the WOEID of Tucson
   w = getW();
   println("WOEID for: " + country + ", " + city + " is " + w);
-  weather = new YahooWeather(this, 2508428, "f", updateIntervallMillis);
+  weather = new YahooWeather(this, w, "f", updateIntervallMillis);
  
   //visuals
   minim = new Minim(this);

@@ -282,11 +282,20 @@ String getW(){
   
   GetRequest get = new GetRequest("http://where.yahooapis.com/v1/places.q('" + city + "')?appid=9c75c376c3153f80997f44c13731758b995fda5f");
   get.send();
-  xml = loadXML(get.getContent());
   
-  XML woeid = xml.getChild("woeid");
-  w = woeid.getContent();
+  String all = get.getContent();
+  println("non-parsed woeid: " + all);
+//  xml = loadXML(get.getContent());
+//  
+//  XML woeid = xml.getChild("woeid");
+//  w = woeid.getContent();
   
+  String startSearch = "<woeid>";
+  String endSearch = "</woeid>";
+  
+  int startIndex = all.indexOf(startSearch);
+  int endIndex = all.indexOf(endSearch); 
+  w = all.substring(startIndex + 7, endIndex);
   return w; 
 }
 
