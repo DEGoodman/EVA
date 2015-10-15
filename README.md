@@ -18,6 +18,3 @@ A few examples:
 #### Version 2.0
 Changes
  - v1.0 required a physical array of sensors and an arduino to gather data. v2.0 gets data from the internet and can be run from any laptop with an internet connection.
-
- Future implementaions:
-  - fix image capture; currently only copies desaturated images, total loss of color
