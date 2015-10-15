@@ -9,7 +9,7 @@ The environment variables are:
 
 This program is built in [Processing](processing.org), and must be run from Processing.
 
-The visual below is an example of one fram eof the output. While it is in black and white, the actual program displays in full color.
+The visual below is an example of one frame of the output. While it is in black and white, the actual program displays in full color.
 
 ![Example Visual](http://imgur.com/K4PBkSx.png, "Desaturated")
 
