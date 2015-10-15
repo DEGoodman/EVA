@@ -3,7 +3,9 @@
 
 import com.onformative.yahooweather.*;
 import ddf.minim.*;
+import http.requests.*;
 
+//http://www.onformative.com/lab/google-weather-library-for-processing/
 YahooWeather weather;
 int updateIntervallMillis = 60000; 
 
@@ -16,10 +18,9 @@ Round[] rounds;
 float xincrement = 0.0007; 
 float yincrement = 0.0007;
 
-// sensors
-int pot;
 int lightRes;
 int temperature;
+
 int seed = 0;
 int counter = 0;
 int hue;
@@ -29,13 +30,44 @@ int lineCounter = 0;
 int waitCounter = 300;
 int gainModifier = 0;
 
+StringDict cc;
+String country;
+String city;
+String state;
+String w;
+
+
 void setup() {
-  size(800, 600, P2D);
+  size(1200, 960, P2D);
+  
+  //get my location data  
+  GetRequest getCountry = new GetRequest("http://ip-api.com/line/?fields=country");
+  getCountry.send();
+  country = getCountry.getContent();
+  country = country.substring(0, country.length() - 1);
+  println("Response Country: " + country);
+  
+  // if location is outside US, these wll be null
+  if(country.equals("United States")){
+      GetRequest getCity = new GetRequest("http://ip-api.com/line/?fields=city");
+      getCity.send();
+      city = getCity.getContent();
+      city = city.substring(0, city.length() - 1);
+      println("Response City: " + city);
+  }  
+  
+  else {
+      // get capital city
+      city = getCity(country);
+      println("Response City: " + city);
+  }  
   
   // get weather data 
   // 2508428= the WOEID of Tucson
-  // use this site to find out about your WOEID : http://sigizmund.info/woeidinfo/
-  weather = new YahooWeather(this, 2508428, "f", updateIntervallMillis);
+  w = getW();
+  int wInt = parseInt(w);
+  println("WOEID for: " + country + ", " + city + " is " + w);
+  weather = new YahooWeather(this, wInt, "f", updateIntervallMillis);
  
   //visuals
   minim = new Minim(this);
